@@ -7,6 +7,7 @@
   --contrast-secondary-color: #fafafa;
   --primary-text-color: #fafafa;
   --danger-color: #dd2c00;
+  --black-color: black;
 
   --font-weight-boldest: 1000;
   --font-weight-bolder: 900;
@@ -48,6 +49,7 @@
   justify-content: center;
   align-items: center;
 }
+
 h1,
 h2,
 h3,
@@ -83,6 +85,11 @@ button {
   cursor: pointer;
   color: var(--contrast-secondary-color);
   background-color: var(--secondary-color);
+}
+
+button:hover {
+  background-color: var(--primary-color);
+  color: var(--black-color);
 }
 
 button:disabled {
