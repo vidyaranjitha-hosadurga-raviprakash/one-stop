@@ -26,16 +26,16 @@ export const CountdownTimer = ({
 }) => {
   const colorsList = colors ? colors : [];
 
-  console.log(
-    "CountdownTimer: timerKey = ",
-    timerKey,
-    " isPlaying = ",
-    isPlaying,
-    " ; duration = ",
-    duration,
-    " ; initialRemainingTime = ",
-    initialRemainingTime
-  );
+  // console.log(
+  //   "CountdownTimer: timerKey = ",
+  //   timerKey,
+  //   " isPlaying = ",
+  //   isPlaying,
+  //   " ; duration = ",
+  //   duration,
+  //   " ; initialRemainingTime = ",
+  //   initialRemainingTime
+  // );
 
   return (
     <>

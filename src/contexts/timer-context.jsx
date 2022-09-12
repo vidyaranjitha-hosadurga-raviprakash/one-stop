@@ -35,7 +35,7 @@ const TimerProvider = ({ children }) => {
   const [countDownRemainingTime, setCountDownRemainingTime] = useState(
     timer.config[0].value
   );
-  console.log("countDownRemainingTime = ", countDownRemainingTime);
+  // console.log("countDownRemainingTime = ", countDownRemainingTime);
 
   // Running the timer.
   useEffect(() => {

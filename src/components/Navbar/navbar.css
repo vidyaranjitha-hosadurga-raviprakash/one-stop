@@ -1,9 +1,9 @@
 .nav-container {
-  display: flex;
+display: flex;
   gap: 2rem;
 }
 
-.nav-links {
+.nav-links-wrapper {
   display: flex;
   gap: 2rem;
   align-items: center;
@@ -18,7 +18,7 @@
   background-color: var(--secondary-color);
   transition: var(--transition);
 }
-.nav-links .active {
+.nav-link.active {
   font-weight: var(--font-weight-boldest);
   border: 0.1rem solid var(--secondary-color);
 }
