@@ -16,10 +16,14 @@ export const Home = () => {
     <div className="home-container container">
       <div className="flex-centered-column home-clock-wrapper">
         <div className="clock-time">
-          <h1>{time}</h1>
+          <span>{time}</span>
         </div>
-        <div className="clock-greet">{greet}</div>
-        <div className="clock-date">{date}</div>
+        <div className="clock-greet">
+          <span>{greet}</span>
+        </div>
+        <div className="clock-date">
+          <span>{date}</span>
+        </div>
         <div></div>
       </div>
 
