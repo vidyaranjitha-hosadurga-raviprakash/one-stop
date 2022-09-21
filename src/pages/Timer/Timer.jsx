@@ -30,7 +30,6 @@ export const Timer = () => {
       value: <i className="fa fa-pause" />,
       clickHandler: () => stopTimer(),
       disabled: !isTimerExecuting,
-      ref: null,
     },
     {
       value: <i className="fa fa-undo" />,

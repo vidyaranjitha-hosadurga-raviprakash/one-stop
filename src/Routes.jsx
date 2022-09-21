@@ -1,23 +1,24 @@
-import { Home, Timer } from "pages";
+import React from "react";
 import { Routes as RoutesContainer, Route } from "react-router-dom";
+
+import { Home, Timer } from "pages";
 import { QuotesProvider } from "contexts";
 import { routesConstant } from "data/Constants";
-import React from "react";
+
 export const Routes = () => {
   return (
-    <>
-      <RoutesContainer>
-        <Route
-          path={routesConstant.HOME_PAGE}
-          element={
-            <QuotesProvider>
-              <Home />
-            </QuotesProvider>
-          }
-        />
-        <Route path={routesConstant.TIMER_PAGE} element={<Timer />} />
+    <RoutesContainer>
+      <Route
+        path={routesConstant.HOME_PAGE}
+        element={
+          <QuotesProvider>
+            <Home />
+          </QuotesProvider>
+        }
+      />
+      <Route path={routesConstant.TIMER_PAGE} element={<Timer />} />
 
-        {/* <Route
+      {/* <Route
           path={routesConstant.MULTI_CLOCKS_PAGE}
           element={<MultiClocks />}
         />
@@ -25,7 +26,6 @@ export const Routes = () => {
           path={routesConstant.CURRENCY_CONVERTER_PAGE}
           element={<CurrencyConverter />}
         /> */}
-      </RoutesContainer>
-    </>
+    </RoutesContainer>
   );
 };

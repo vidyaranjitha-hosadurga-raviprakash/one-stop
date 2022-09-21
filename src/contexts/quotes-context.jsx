@@ -22,7 +22,7 @@ const QuotesProvider = ({ children }) => {
         const { text, author } = data[random];
         setQuotes({ text, author }); // ES6 notation
       })
-      .catch(() => console.log("Error while fetching quotes"));
+      .catch((err) => console.log("Error while fetching quotes. Error =", err));
   };
 
   useEffect(() => {
