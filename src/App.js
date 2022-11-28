@@ -1,5 +1,7 @@
 import React, { useRef, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { Appbar } from "components";
 import { Routes } from "./Routes";
@@ -20,11 +22,12 @@ function App() {
 
   // On loading of app, navigating to home page.
   useEffect(() => {
-    navigateRef.current(routesConstant.HOME_PAGE);
+    navigateRef.current(routesConstant.TIMER_PAGE);
   }, []);
 
   return (
     <div className="app-image" ref={appRef}>
+      <ToastContainer />
       <Appbar appRef={appRef} changeBg={changeBackground} />
       <main>
         <Routes />

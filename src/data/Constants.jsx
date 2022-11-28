@@ -15,12 +15,12 @@ export const navOptions = [
 ];
 export const imageVariants = {
   NATURE: "nature",
-  STOP_WATCH: "timer",
+  TIMER: "watch",
 };
 
 export const NAVBAR_BG_IMAGE_MAPPING = {
   0: imageVariants.NATURE,
-  1: imageVariants.STOP_WATCH,
+  1: imageVariants.TIMER,
 };
 
 export const apiUrls = {

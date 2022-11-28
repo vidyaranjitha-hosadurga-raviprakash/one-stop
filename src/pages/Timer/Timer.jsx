@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { toast } from "react-toastify";
+import useSound from "use-sound";
 
 import { useTimer } from "contexts";
 import { ConfigTimerForm } from "pages/Timer";
@@ -6,6 +8,7 @@ import { CountdownTimer } from "components";
 import { convertHMS } from "utils/commonOperations";
 
 import "pages/Timer/timer.css";
+import iPhoneTimer from "assets/audio/iphoneTimer.mp3";
 
 const COLORS = ["#004777", "#F7B801", "#A30000", "#b71c1c"];
 
@@ -16,24 +19,38 @@ export const Timer = () => {
     startTimer,
     stopTimer,
     resetTimer,
+    raiseClearAlarm,
     countDownRemainingTime,
   } = useTimer();
-  const { timerKey, config, isTimerExecuting, isTimerExhausted } = timer;
+
+  const [play, { stop }] = useSound(iPhoneTimer, { interrupt: true });
+
+  const { timerKey, config, isTimerExecuting, isTimerExhausted, raiseAlarm } =
+    timer;
 
   const timerControls = [
     {
-      value: <i className="fa fa-play" />,
+      title: "play-btn",
+      value: "fa-play",
       clickHandler: () => startTimer(),
       disabled: isTimerExecuting || isTimerExhausted,
     },
     {
-      value: <i className="fa fa-pause" />,
+      title: "pause-btn",
+      value: "fa-pause",
       clickHandler: () => stopTimer(),
       disabled: !isTimerExecuting,
     },
     {
-      value: <i className="fa fa-undo" />,
+      title: "reset-btn",
+      value: "fa-undo",
       clickHandler: () => resetTimer(),
+      disabled: false,
+    },
+    {
+      title: "sound-btn",
+      value: `${raiseAlarm ? "fa-bell" : "fa-bell-slash"}`,
+      clickHandler: () => raiseClearAlarm(!Boolean(raiseAlarm)),
       disabled: false,
     },
   ];
@@ -48,15 +65,34 @@ export const Timer = () => {
     );
   };
 
-  const handleTimerConfig = (timerValue) => configTimer(timerValue);
+  // Handling the notifications for the timer exhaustion.
+  useEffect(() => {
+    if (isTimerExhausted) {
+      toast.info("Times up");
+    }
+  }, [isTimerExhausted]);
+
+  // Handling the alarm for the timer exhaustion
+  useEffect(() => {
+    let timerAlarmInterval;
+    if (raiseAlarm) {
+      play();
+      timerAlarmInterval = setInterval(() => {
+        play();
+      }, 12000);
+    } else {
+      stop();
+    }
+    return () => clearInterval(timerAlarmInterval);
+  });
 
   return (
     <div className="container flex-centered-column">
       <div className="flex-centered-column timer-container">
         <div className="timer-config-wrapper">
           <ConfigTimerForm
-            handleTimerConfig={handleTimerConfig}
-            isTimerExecuting={isTimerExecuting}
+            configTimer={configTimer}
+            isTimerConfigEditable={isTimerExecuting}
           />
         </div>
         <div className="timer-display-wrapper">
@@ -74,15 +110,17 @@ export const Timer = () => {
           </div>
 
           <div className="timer-controls ">
-            {timerControls.map(({ value, clickHandler, disabled }, index) => {
+            {timerControls.map(({ title, value, clickHandler, disabled }) => {
               return (
                 <button
-                  key={index}
-                  className="timer-control-btn"
+                  key={title}
+                  className={`timer-control-btn ${
+                    title === "sound-btn" && !isTimerExhausted && "hide"
+                  }`}
                   onClick={clickHandler}
                   disabled={disabled}
                 >
-                  {value}
+                  {<i className={`fa ${value}`} />}
                 </button>
               );
             })}

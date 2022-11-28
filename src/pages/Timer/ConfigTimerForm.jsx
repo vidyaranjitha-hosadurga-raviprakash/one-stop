@@ -1,16 +1,21 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
+
+import { isTimerInputValidate } from "pages/Timer/helper/ConfgTimerFormValidation";
 
 const DEFAULT_TIMER_VALUE = {
   hours: "",
   minutes: "",
   seconds: "",
 };
-export const ConfigTimerForm = ({ handleTimerConfig, isTimerExecuting }) => {
+export const ConfigTimerForm = ({ configTimer, isTimerConfigEditable }) => {
   const [timerInput, setTimerInput] = useState(DEFAULT_TIMER_VALUE);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleTimerConfig(timerInput);
+    if (!isTimerInputValidate(timerInput))
+      return toast.error("Please provide the input");
+    configTimer(timerInput);
     setTimerInput(DEFAULT_TIMER_VALUE);
   };
 
@@ -33,14 +38,14 @@ export const ConfigTimerForm = ({ handleTimerConfig, isTimerExecuting }) => {
             <input
               key={index}
               type="number"
+              min="0"
               value={timerInput[name]}
-              onChange={(e) =>
+              onChange={(e) => {
                 setTimerInput({
                   ...timerInput,
-                  [name]: parseInt(e.target.value),
-                })
-              }
-              required
+                  [name]: +e.target.value,
+                });
+              }}
               className="input-box"
               placeholder={name}
               aria-label={`timer in ${name}`}
@@ -49,7 +54,7 @@ export const ConfigTimerForm = ({ handleTimerConfig, isTimerExecuting }) => {
           );
         })}
 
-        <button type="submit" disabled={isTimerExecuting}>
+        <button type="submit" disabled={isTimerConfigEditable}>
           OK
         </button>
       </div>

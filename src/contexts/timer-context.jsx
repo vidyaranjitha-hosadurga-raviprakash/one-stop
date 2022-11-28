@@ -22,6 +22,7 @@ const timerInitialState = {
   timerKey: 0,
   isTimerExhausted: false,
   isTimerExecuting: false,
+  raiseAlarm: false,
   config: [
     {
       value: DEFAULT_TIMER_VALUE,
@@ -35,7 +36,6 @@ const TimerProvider = ({ children }) => {
   const [countDownRemainingTime, setCountDownRemainingTime] = useState(
     timer.config[0].value
   );
-  // console.log("countDownRemainingTime = ", countDownRemainingTime);
 
   // Running the timer.
   useEffect(() => {
@@ -50,15 +50,14 @@ const TimerProvider = ({ children }) => {
   const configTimer = (timerValue) => {
     const { hours, minutes, seconds } = timerValue;
     const timerInSeconds = getTimeInSeconds(hours, minutes, seconds);
-    if (timerInSeconds <= 0) {
-      return;
-    }
+    setCountDownRemainingTime(timerInSeconds);
     const payload = {
       timerKey: timer.timerKey + generateRandomNumber(),
       config: [{ value: timerInSeconds }],
+      isTimerExecuting: false,
       isTimerExhausted: false,
+      raiseAlarm: false,
     };
-    setCountDownRemainingTime(timerInSeconds);
     timerDispatch({ type: timerActions.CONFIG_TIMER, payload: payload });
   };
 
@@ -78,6 +77,7 @@ const TimerProvider = ({ children }) => {
         timerKey: timer.timerKey + generateRandomNumber(),
         isTimerExecuting: false,
         isTimerExhausted: false,
+        raiseAlarm: false,
         config: [{ value: DEFAULT_TIMER_VALUE }],
       },
     });
@@ -90,11 +90,20 @@ const TimerProvider = ({ children }) => {
     });
   };
 
+  // 0 - CLEAR_ALARM and 1 - RAISE_ALARM
+  const raiseClearAlarm = (operation) => {
+    timerDispatch({
+      type: timerActions.RAISE_CLEAR_ALARM_TIMER,
+      payload: operation ? true : false,
+    });
+  };
+
   // Monitoring the timer for the completion.
   useEffect(() => {
     if (countDownRemainingTime <= 0) {
       exhaustedTimer();
       stopTimer();
+      raiseClearAlarm(1); // Raising the alarm
     }
   }, [countDownRemainingTime]);
 
@@ -106,6 +115,7 @@ const TimerProvider = ({ children }) => {
         startTimer,
         stopTimer,
         resetTimer,
+        raiseClearAlarm,
         countDownRemainingTime,
       }}
     >

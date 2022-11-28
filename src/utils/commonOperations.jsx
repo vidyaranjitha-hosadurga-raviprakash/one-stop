@@ -40,3 +40,7 @@ export const getSingularFormBasedOnValue = (conditionCheck, value, content) => {
     ? content.substring(0, content.length - 1)
     : content;
 };
+
+export const sleep = (milliseconds) => {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+};
