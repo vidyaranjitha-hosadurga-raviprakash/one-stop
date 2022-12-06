@@ -11,7 +11,7 @@ import { apiUrls } from "data/Constants";
 
 import "features/CurrenciesRate/components/css/CurrenciesRate.css";
 import { fetchData, postData, updateData, deleteData } from "libs/axiosOps";
-import { isEmptyStr } from "utils/commonOperations";
+import { sleep, isEmptyStr } from "utils/commonOperations";
 import {
   generateIdFromSourceCurrencies,
   getSourceCurrenciesFromId,
@@ -104,19 +104,26 @@ export const CurrenciesRate = () => {
     await deleteData(`${DB_CURRENCIES_RATE}/${id}`);
   };
 
-  const refreshWishlitCurrencyRate = async () => {
+  const refreshWishlistCurrencyRate = async () => {
     const updatedRates = [];
     const fecthedAllCurrencies = await fetchData(DB_CURRENCIES_RATE);
-    console.log(
-      "refreshWishlitCurrencyRate: fecthedAllCurrencies = ",
-      fecthedAllCurrencies
+
+    await Promise.all(
+      fecthedAllCurrencies.map(async ({ id }) => {
+        try {
+          const [source, currencies] = getSourceCurrenciesFromId(id);
+          console.log("refreshWishlitCurrencyRate , id = ", id);
+          const rate = await getCurrencyRate(id, source, currencies);
+          console.log("rate= ", rate);
+          updatedRates.push({ id, rate, wishlisted: true });
+        } catch (error) {
+          console.log(
+            "Error while fetching wishlisted currencies from the DB. Error = ",
+            error
+          );
+        }
+      })
     );
-    await fecthedAllCurrencies.forEach(async ({ id }) => {
-      const [source, currencies] = getSourceCurrenciesFromId(id);
-      console.log("refreshWishlitCurrencyRate , id = ", id, source, currencies);
-      const rate = await getCurrencyRate(id, source, currencies);
-      updatedRates.push({ id, rate, wishlisted: true });
-    });
     console.log("updatedRates= ", updatedRates);
     addAllCurrenciesRateToWishlist(updatedRates);
   };
@@ -143,7 +150,7 @@ export const CurrenciesRate = () => {
                 <button
                   className="wishlist__refresh__btn"
                   type="button"
-                  onClick={() => refreshWishlitCurrencyRate()}
+                  onClick={() => refreshWishlistCurrencyRate()}
                 >
                   <i class="fa fa-refresh" aria-hidden="true"></i>
                 </button>
