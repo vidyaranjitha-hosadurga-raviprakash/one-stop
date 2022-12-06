@@ -50,7 +50,7 @@ export const CurrenciesRate = () => {
 
     try {
       console.log("fetching !!!!!!!!!!");
-      const rateKey = getSourceCurrenciesFromId(id).join("");
+      // const rateKey = getSourceCurrenciesFromId(id).join("");
       // const response = await fetchData(
       //   `${url}source=${source}&currencies=${currencies}&apikey=${apikey}`
       // );
