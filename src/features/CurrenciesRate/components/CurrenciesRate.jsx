@@ -46,17 +46,16 @@ export const CurrenciesRate = () => {
     if (isEmptyStr(source) && isEmptyStr(currencies)) {
       return;
     }
-    // const { url, apikey } = apiUrls.CURRENCY_CONVERTER;
+    const { url, apikey } = apiUrls.CURRENCY_CONVERTER;
 
     try {
       console.log("fetching !!!!!!!!!!");
-      // const rateKey = getSourceCurrenciesFromId(id).join("");
-      // const response = await fetchData(
-      //   `${url}source=${source}&currencies=${currencies}&apikey=${apikey}`
-      // );
-      // console.log("response = ", response);
-      // const rate = await response.quotes[rateKey].toFixed(4);
-      const rate = 86.12;
+      const rateKey = getSourceCurrenciesFromId(id).join("");
+      const response = await fetchData(
+        `${url}source=${source}&currencies=${currencies}&apikey=${apikey}`
+      );
+      console.log("response = ", response);
+      const rate = await response.quotes[rateKey].toFixed(4);
       console.log("source = ", source, "currencies = ", currencies, rate);
       // localStorage.setItem("CURRENCY", euroInr, 86400 * 1000);
       return rate;
