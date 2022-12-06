@@ -1,6 +1,7 @@
 export const routesConstant = {
   HOME_PAGE: "/",
   TIMER_PAGE: "/timer",
+  CURRENCIES_PAGE: "currencies",
 };
 
 export const navOptions = [
@@ -11,6 +12,10 @@ export const navOptions = [
   {
     name: "Timer",
     to: routesConstant.TIMER_PAGE,
+  },
+  {
+    name: "Currencies",
+    to: routesConstant.CURRENCIES_PAGE,
   },
 ];
 export const imageVariants = {
@@ -31,8 +36,6 @@ export const apiUrls = {
   CURRENCY_CONVERTER: {
     url: "https://api.apilayer.com/currency_data/live?",
     apikey: "BwkllxuLqtcWHEyf3kLdBBizi58f72rx",
-    source: "EUR",
-    currencies: "INR",
   },
 
   GEO_LOCATION: {
@@ -44,6 +47,8 @@ export const apiUrls = {
     url: "https://api.openweathermap.org/data/2.5/weather", //"https://api.openweathermap.org/geo/1.0/reverse", //"https://api.openweathermap.org/data/2.5/weather",
     apiKey: "9a65788e6138758e95e1b15b6a59bef9",
   },
+
+  JSON_DB: "http://localhost:30001/",
 };
 
 export const BG_IMAGE_SIZE = "1366×768";

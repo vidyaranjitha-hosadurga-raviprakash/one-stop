@@ -55,7 +55,7 @@ export const ConfigTimerForm = ({ configTimer, isTimerConfigEditable }) => {
         })}
 
         <button type="submit" disabled={isTimerConfigEditable}>
-          OK
+          <i className="fa fa-arrow-right" />
         </button>
       </div>
     </form>

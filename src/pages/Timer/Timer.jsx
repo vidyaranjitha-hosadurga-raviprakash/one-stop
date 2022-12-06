@@ -88,7 +88,7 @@ export const Timer = () => {
 
   return (
     <div className="container flex-centered-column">
-      <div className="flex-centered-column timer-container">
+      <div className="flex-centered-column timer__container">
         <div className="timer-config-wrapper">
           <ConfigTimerForm
             configTimer={configTimer}

@@ -1,0 +1,9 @@
+.currencies__container {
+  width: 80%;
+  margin: auto;
+  color: var(--black-color);
+}
+
+/* Small devices */
+@media (max-width: 767.98px) {
+}

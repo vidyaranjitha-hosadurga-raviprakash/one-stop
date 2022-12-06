@@ -44,3 +44,8 @@ export const getSingularFormBasedOnValue = (conditionCheck, value, content) => {
 export const sleep = (milliseconds) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
+
+export const isEmptyStr = (input) => {
+  if (input === undefined) return true;
+  return input.toString().trim().length ? false : true;
+};

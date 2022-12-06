@@ -1,4 +1,4 @@
-.timer-container {
+.timer__container {
   background-color: var(--primary-color-opacity);
   gap: 35px;
   padding: 50px 50px;
@@ -36,7 +36,7 @@
 
 /* Small devices */
 @media (max-width: 767.98px) {
-  .timer-container {
+  .timer__container {
     width: 80%;
   }
 }

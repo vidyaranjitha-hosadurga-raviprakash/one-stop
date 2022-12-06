@@ -4,19 +4,23 @@ import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 
 import { ClockProvider, TimerProvider } from "contexts";
+
 import "./index.css";
 import App from "./App";
+import { CurrenciesRateProvider } from "features";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ClockProvider>
-      <TimerProvider>
-        <Router>
-          <App />
-        </Router>
-      </TimerProvider>
-    </ClockProvider>
+    <CurrenciesRateProvider>
+      <ClockProvider>
+        <TimerProvider>
+          <Router>
+            <App />
+          </Router>
+        </TimerProvider>
+      </ClockProvider>
+    </CurrenciesRateProvider>
   </React.StrictMode>
 );
 

@@ -19,23 +19,11 @@ export const CountdownTimer = ({
   duration,
   initialRemainingTime,
   onComplete,
-  isDurationInMinute,
   children,
   colors,
   rotation,
 }) => {
   const colorsList = colors ? colors : [];
-
-  // console.log(
-  //   "CountdownTimer: timerKey = ",
-  //   timerKey,
-  //   " isPlaying = ",
-  //   isPlaying,
-  //   " ; duration = ",
-  //   duration,
-  //   " ; initialRemainingTime = ",
-  //   initialRemainingTime
-  // );
 
   return (
     <>
