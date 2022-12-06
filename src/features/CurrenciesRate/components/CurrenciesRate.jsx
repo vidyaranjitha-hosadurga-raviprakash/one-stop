@@ -106,7 +106,12 @@ export const CurrenciesRate = () => {
 
   const refreshWishlitCurrencyRate = async () => {
     const updatedRates = [];
-    await currenciesRate.forEach(async ({ id }) => {
+    const fecthedAllCurrencies = await fetchData(DB_CURRENCIES_RATE);
+    console.log(
+      "refreshWishlitCurrencyRate: fecthedAllCurrencies = ",
+      fecthedAllCurrencies
+    );
+    await fecthedAllCurrencies.forEach(async ({ id }) => {
       const [source, currencies] = getSourceCurrenciesFromId(id);
       console.log("refreshWishlitCurrencyRate , id = ", id, source, currencies);
       const rate = await getCurrencyRate(id, source, currencies);
