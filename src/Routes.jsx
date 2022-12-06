@@ -1,7 +1,6 @@
 import React from "react";
 import { Routes as RoutesContainer, Route } from "react-router-dom";
 
-import { CurrenciesRateProvider } from "features";
 import { Home, Timer, Currencies } from "pages";
 import { QuotesProvider } from "contexts";
 import { routesConstant } from "data/Constants";
