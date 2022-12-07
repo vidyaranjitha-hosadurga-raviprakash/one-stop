@@ -1,4 +1,4 @@
-.appbar-container {
+.appbar__container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -8,6 +8,16 @@
   padding: 0rem 2rem;
 }
 
-.appbar-widget-wrapper {
+.appbar-clock-widget__wrapper {
   margin: 1rem 1rem;
+}
+
+@media (max-width: 767.98px) {
+  .appbar__container {
+    font-size: 0.7rem;
+    margin-left: -1rem;
+  }
+  .appbar-clock-widget__wrapper {
+    margin: 0.1rem 0.1rem;
+  }
 }

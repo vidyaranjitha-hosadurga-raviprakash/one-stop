@@ -16,10 +16,15 @@ export const Appbar = ({ changeBg }) => {
   } = useClock();
 
   return (
-    <div className="appbar-container">
+    <div className="flex-display appbar__container">
       <Navbar activeNav={activeNav} activeNavHandler={activeNavHandler} />
-      {/* Weather widget only in home page and clock in rest of the page */}
-      <div className="appbar-widget-wrapper">{activeNav === 0 ? null : time}</div>
+
+      {/* Clock widget in all pages except the home page */}
+      <div className="appbar-clock-widget__wrapper">
+        {activeNav !== 0 && time}
+      </div>
+
+      {/* TODO : Add weather widget*/}
       {/* <Weather /> */}
     </div>
   );
