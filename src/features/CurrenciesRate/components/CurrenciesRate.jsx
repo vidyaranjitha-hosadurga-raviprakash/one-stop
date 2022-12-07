@@ -11,11 +11,12 @@ import { apiUrls } from "data/Constants";
 
 import "features/CurrenciesRate/components/css/CurrenciesRate.css";
 import { fetchData, postData, updateData, deleteData } from "libs/axiosOps";
-import { sleep, isEmptyStr } from "utils/commonOperations";
+import { isEmptyStr } from "utils/commonOperations";
 import {
   generateIdFromSourceCurrencies,
   getSourceCurrenciesFromId,
 } from "features/CurrenciesRate/helpers/commonOperations";
+import { toast } from "react-toastify";
 
 const DB_CURRENCIES_RATE = `${apiUrls.JSON_DB}currencies`;
 
@@ -94,15 +95,23 @@ export const CurrenciesRate = () => {
       (currency) => currency.id === id
     );
     await addCurrenciesRateToWatchlist(watchlistedData);
-    (await isCurrencyExists)
-      ? updateData(`${DB_CURRENCIES_RATE}/${id}`, watchlistedData)
-      : postData(DB_CURRENCIES_RATE, watchlistedData);
+    try {
+      (await isCurrencyExists)
+        ? updateData(`${DB_CURRENCIES_RATE}/${id}`, watchlistedData)
+        : postData(DB_CURRENCIES_RATE, watchlistedData);
+    } catch (error) {
+      toast.error("Failed to add to watchlist");
+    }
     setCurrenciesSelected({});
   };
 
   const unWatchlistCurrencyRate = async (id) => {
     await removeCurrenciesRateFromWatchlist(id);
-    await deleteData(`${DB_CURRENCIES_RATE}/${id}`);
+    try {
+      await deleteData(`${DB_CURRENCIES_RATE}/${id}`);
+    } catch (error) {
+      toast.error("Failed to remove from the watchlist");
+    }
   };
 
   const refreshWatchlistCurrencyRate = async () => {
@@ -113,11 +122,10 @@ export const CurrenciesRate = () => {
       fecthedAllCurrencies.map(async ({ id }) => {
         try {
           const [source, currencies] = getSourceCurrenciesFromId(id);
-          console.log("refreshWatchlistCurrencyRate , id = ", id);
           const rate = await getCurrencyRate(id, source, currencies);
-          console.log("rate= ", rate);
           updatedRates.push({ id, rate, watchlisted: true });
         } catch (error) {
+          toast.error("Failed to refresh the watchlist");
           console.log(
             "Error while fetching watchlisted currencies from the DB. Error = ",
             error
@@ -125,8 +133,18 @@ export const CurrenciesRate = () => {
         }
       })
     );
-    console.log("updatedRates= ", updatedRates);
-    addAllCurrenciesRateToWatchlist(updatedRates);
+
+    if (updatedRates.length) {
+      addAllCurrenciesRateToWatchlist(updatedRates);
+      // Updating to the DB
+      try {
+        updatedRates.forEach((updatedRate) => {
+          updateData(`${DB_CURRENCIES_RATE}/${updatedRate.id}`, updatedRate);
+        });
+      } catch (error) {
+        toast.error("Failed to update DB");
+      }
+    }
   };
 
   return (
@@ -155,7 +173,7 @@ export const CurrenciesRate = () => {
                     onClick={() => refreshWatchlistCurrencyRate()}
                     title="Refresh watchlist"
                   >
-                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                    <i className="fa fa-refresh" aria-hidden="true"></i>
                   </button>
                 </div>
               </>
