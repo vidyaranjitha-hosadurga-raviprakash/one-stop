@@ -29,8 +29,8 @@ export const CurrenciesRate = () => {
   } = useCurrenciesRate();
   const [currenciesSelected, setCurrenciesSelected] = useState({});
 
-  console.log("CurrenciesRate: currenciesSelected = ", currenciesSelected);
-  console.log("CurrenciesRate: currenciesRate = ", currenciesRate);
+  // console.log("CurrenciesRate: currenciesSelected = ", currenciesSelected);
+  // console.log("CurrenciesRate: currenciesRate = ", currenciesRate);
 
   const configCurrenciesHandler = async ({ source, currencies }) => {
     setCurrenciesSelected({
@@ -43,7 +43,6 @@ export const CurrenciesRate = () => {
   };
 
   const getCurrencyRate = async (id, source, currencies) => {
-    console.log("triggered getCurrencyRate", source, currencies);
     if (isEmptyStr(source) && isEmptyStr(currencies)) {
       return;
     }
