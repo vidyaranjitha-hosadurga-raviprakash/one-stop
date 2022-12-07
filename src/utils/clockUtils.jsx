@@ -1,8 +1,8 @@
 const getGreet = (hrs) => {
-  if (hrs < 12) return "Guten Morgen";
-  if (hrs >= 12 && hrs <= 18) return "Guten Tag";
-  if (hrs >= 18 && hrs <= 21) return "Guten Abend";
-  return "Good Nacht";
+  if (hrs < 12) return { DE: "Guten Morgen", EN: "Good Morning" };
+  if (hrs >= 12 && hrs <= 18) return { DE: "Guten Tag", EN: "Good Afternoon" };
+  if (hrs >= 18 && hrs <= 21) return { DE: "Guten Abend", EN: "Good Evening" };
+  return { DE: "Gute Nacht", EN: "Good Night" };
 };
 
 const options = {

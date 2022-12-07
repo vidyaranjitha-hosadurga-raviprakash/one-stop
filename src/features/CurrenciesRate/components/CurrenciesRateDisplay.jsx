@@ -6,9 +6,9 @@ export const CurrenciesRateDisplay = ({
   rate,
   source,
   currencies,
-  handleAddToWishlist,
-  handleRemoveFromWishlist,
-  wishlisted,
+  handleAddToWatchlist,
+  handleRemoveFromWatchlist,
+  watchlisted,
 }) => {
   if (!source && !currencies) return;
 
@@ -20,12 +20,17 @@ export const CurrenciesRateDisplay = ({
       <div>
         <button
           onClick={() =>
-            wishlisted
-              ? handleRemoveFromWishlist(id)
-              : handleAddToWishlist(id, rate)
+            watchlisted
+              ? handleRemoveFromWatchlist(id)
+              : handleAddToWatchlist(id, rate)
           }
         >
-          <i className={` fa fa-star${wishlisted ? "" : "-o"}`} />
+          <i
+            className={` fa fa-star${watchlisted ? "" : "-o"}`}
+            title={`${
+              watchlisted ? "Remove from watchlist" : "Add to watchlist"
+            }`}
+          />
         </button>
       </div>
     </div>

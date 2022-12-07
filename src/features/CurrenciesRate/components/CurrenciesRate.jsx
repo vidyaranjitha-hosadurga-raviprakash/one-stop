@@ -22,9 +22,9 @@ const DB_CURRENCIES_RATE = `${apiUrls.JSON_DB}currencies`;
 export const CurrenciesRate = () => {
   const {
     currenciesRate,
-    addCurrenciesRateToWishlist,
-    addAllCurrenciesRateToWishlist,
-    removeCurrenciesRateFromWishlist,
+    addCurrenciesRateToWatchlist,
+    addAllCurrenciesRateToWatchlist,
+    removeCurrenciesRateFromWatchlist,
   } = useCurrenciesRate();
   const [currenciesSelected, setCurrenciesSelected] = useState({});
 
@@ -37,7 +37,7 @@ export const CurrenciesRate = () => {
       source,
       currencies,
       rate: "",
-      wishlisted: false,
+      watchlisted: false,
     });
   };
 
@@ -50,13 +50,14 @@ export const CurrenciesRate = () => {
 
     try {
       console.log("fetching !!!!!!!!!!");
-      const rateKey = getSourceCurrenciesFromId(id).join("");
-      const response = await fetchData(
-        `${url}source=${source}&currencies=${currencies}&apikey=${apikey}`
-      );
-      console.log("response = ", response);
-      const rate = await response.quotes[rateKey].toFixed(4);
-      console.log("source = ", source, "currencies = ", currencies, rate);
+      // const rateKey = getSourceCurrenciesFromId(id).join("");
+      // const response = await fetchData(
+      //   `${url}source=${source}&currencies=${currencies}&apikey=${apikey}`
+      // );
+      // console.log("response = ", response);
+      // const rate = await response.quotes[rateKey].toFixed(4);
+      // console.log("source = ", source, "currencies = ", currencies, rate);
+      const rate = 19;
       // localStorage.setItem("CURRENCY", euroInr, 86400 * 1000);
       return rate;
     } catch {}
@@ -70,41 +71,41 @@ export const CurrenciesRate = () => {
     })();
   }, [currenciesSelected.source, currenciesSelected.currencies]);
 
-  //Fetching the wishlisted currencies rate while the initial load of the page.
+  //Fetching the watchlisted currencies rate while the initial load of the page.
   useEffect(() => {
     (async () => {
       try {
         const fecthedAllCurrencies = await fetchData(DB_CURRENCIES_RATE);
         if (fecthedAllCurrencies.length) {
-          addAllCurrenciesRateToWishlist(fecthedAllCurrencies);
+          addAllCurrenciesRateToWatchlist(fecthedAllCurrencies);
         }
       } catch (error) {
         console.log(
-          "Error while fetching wishlisted currencies from the DB. Error = ",
+          "Error while fetching watchlisted currencies from the DB. Error = ",
           error
         );
       }
     })();
-  }, [addAllCurrenciesRateToWishlist]);
+  }, [addAllCurrenciesRateToWatchlist]);
 
-  const wishlistCurrencyRate = async (id, rate) => {
-    const wishlistedData = { id, rate, wishlisted: true };
+  const watchlistCurrencyRate = async (id, rate) => {
+    const watchlistedData = { id, rate, watchlisted: true };
     const isCurrencyExists = currenciesRate.find(
       (currency) => currency.id === id
     );
-    await addCurrenciesRateToWishlist(wishlistedData);
+    await addCurrenciesRateToWatchlist(watchlistedData);
     (await isCurrencyExists)
-      ? updateData(`${DB_CURRENCIES_RATE}/${id}`, wishlistedData)
-      : postData(DB_CURRENCIES_RATE, wishlistedData);
+      ? updateData(`${DB_CURRENCIES_RATE}/${id}`, watchlistedData)
+      : postData(DB_CURRENCIES_RATE, watchlistedData);
     setCurrenciesSelected({});
   };
 
-  const unWishlistCurrencyRate = async (id) => {
-    await removeCurrenciesRateFromWishlist(id);
+  const unWatchlistCurrencyRate = async (id) => {
+    await removeCurrenciesRateFromWatchlist(id);
     await deleteData(`${DB_CURRENCIES_RATE}/${id}`);
   };
 
-  const refreshWishlistCurrencyRate = async () => {
+  const refreshWatchlistCurrencyRate = async () => {
     const updatedRates = [];
     const fecthedAllCurrencies = await fetchData(DB_CURRENCIES_RATE);
 
@@ -112,28 +113,28 @@ export const CurrenciesRate = () => {
       fecthedAllCurrencies.map(async ({ id }) => {
         try {
           const [source, currencies] = getSourceCurrenciesFromId(id);
-          console.log("refreshWishlitCurrencyRate , id = ", id);
+          console.log("refreshWatchlistCurrencyRate , id = ", id);
           const rate = await getCurrencyRate(id, source, currencies);
           console.log("rate= ", rate);
-          updatedRates.push({ id, rate, wishlisted: true });
+          updatedRates.push({ id, rate, watchlisted: true });
         } catch (error) {
           console.log(
-            "Error while fetching wishlisted currencies from the DB. Error = ",
+            "Error while fetching watchlisted currencies from the DB. Error = ",
             error
           );
         }
       })
     );
     console.log("updatedRates= ", updatedRates);
-    addAllCurrenciesRateToWishlist(updatedRates);
+    addAllCurrenciesRateToWatchlist(updatedRates);
   };
 
   return (
     <div className={"flex-centered-column currencies-rate__container"}>
-      <div className="currencies-rate__non-wishlisted">
+      <div className="currencies-rate__non-watchlisted">
         <CurrenciesRateDisplay
           {...currenciesSelected}
-          handleAddToWishlist={wishlistCurrencyRate}
+          handleAddToWatchlist={watchlistCurrencyRate}
         />
       </div>
 
@@ -141,37 +142,40 @@ export const CurrenciesRate = () => {
         <CurrenciesRateForm handleCurrenciesConfig={configCurrenciesHandler} />
       </div>
 
-      <div className="currencies-rate__wishlisted">
-        <div>
-          {currenciesRate.length ? (
-            <>
-              <div className="flex-display wishlist__refresh">
-                <h3>Watchlist</h3>
-                <button
-                  className="wishlist__refresh__btn"
-                  type="button"
-                  onClick={() => refreshWishlistCurrencyRate()}
-                >
-                  <i class="fa fa-refresh" aria-hidden="true"></i>
-                </button>
-              </div>
-            </>
-          ) : null}
+      {Boolean(currenciesRate.length) && (
+        <div className="currencies-rate__watchlisted">
+          <div className="watchlist__header">
+            {currenciesRate.length ? (
+              <>
+                <div className="flex-display watchlist__refresh">
+                  <h3>Watchlist</h3>
+                  <button
+                    className="watchlist__refresh__btn"
+                    type="button"
+                    onClick={() => refreshWatchlistCurrencyRate()}
+                    title="Refresh watchlist"
+                  >
+                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </>
+            ) : null}
+          </div>
+          <div className="watchlist__content">
+            {currenciesRate.map(({ id, ...rest }) => {
+              const [source, currencies] = getSourceCurrenciesFromId(id);
+              const props = { source, currencies, ...rest };
+              return (
+                <CurrenciesRateDisplay
+                  {...props}
+                  handleAddToWatchlist={watchlistCurrencyRate}
+                  handleRemoveFromWatchlist={unWatchlistCurrencyRate}
+                />
+              );
+            })}
+          </div>
         </div>
-        <div className="wishlist__display">
-          {currenciesRate.map(({ id, ...rest }) => {
-            const [source, currencies] = getSourceCurrenciesFromId(id);
-            const props = { source, currencies, ...rest };
-            return (
-              <CurrenciesRateDisplay
-                {...props}
-                handleAddToWishlist={wishlistCurrencyRate}
-                handleRemoveFromWishlist={unWishlistCurrencyRate}
-              />
-            );
-          })}
-        </div>
-      </div>
+      )}
     </div>
   );
 };

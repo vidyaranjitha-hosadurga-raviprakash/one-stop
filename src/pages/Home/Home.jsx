@@ -18,8 +18,8 @@ export const Home = () => {
         <div className="clock-time">
           <span>{time}</span>
         </div>
-        <div className="clock-greet">
-          <span>{greet}</span>
+        <div className="clock-greet" title={greet.EN}>
+          <span>{greet.DE}</span>
         </div>
         <div className="clock-date">
           <span>{date}</span>

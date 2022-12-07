@@ -18,32 +18,32 @@ const CurrenciesRateProvider = ({ children }) => {
     []
   );
 
-  const addAllCurrenciesRateToWishlist = useCallback((payload) => {
-    console.log("addAllCurrenciesRateToWishlist: payload", payload);
+  const addAllCurrenciesRateToWatchlist = useCallback((payload) => {
+    console.log("addAllCurrenciesRateToWatchlist: payload", payload);
     currenciesRateDispatch({
-      type: currenciesRateActions.ADD_ALL_CURRENCIES_RATE_TO_WISHLIST,
+      type: currenciesRateActions.ADD_ALL_CURRENCIES_RATE_TO_WATCHLIST,
       payload,
     });
   }, []);
-  const addCurrenciesRateToWishlist = (payload) => {
-    console.log("addCurrenciesRateToWishlist: payload", payload);
+  const addCurrenciesRateToWatchlist = (payload) => {
+    console.log("addCurrenciesRateToWatchlist: payload", payload);
     currenciesRateDispatch({
-      type: currenciesRateActions.ADD_CURRENCIES_RATE_TO_WISHLIST,
+      type: currenciesRateActions.ADD_CURRENCIES_RATE_TO_WATCHLIST,
       payload,
     });
   };
 
-  const removeCurrenciesRateFromWishlist = (id) => {
+  const removeCurrenciesRateFromWatchlist = (id) => {
     currenciesRateDispatch({
-      type: currenciesRateActions.REMOVE_CURRENCIES_RATE_TO_WISHLIST,
+      type: currenciesRateActions.REMOVE_CURRENCIES_RATE_TO_WATCHLIST,
       payload: { id },
     });
   };
   const options = {
     currenciesRate,
-    addCurrenciesRateToWishlist,
-    addAllCurrenciesRateToWishlist,
-    removeCurrenciesRateFromWishlist,
+    addCurrenciesRateToWatchlist,
+    addAllCurrenciesRateToWatchlist,
+    removeCurrenciesRateFromWatchlist,
   };
   return (
     <CurrenciesRateContext.Provider value={{ ...options }}>
