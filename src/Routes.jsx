@@ -18,14 +18,6 @@ export const Routes = () => {
       />
       <Route path={routesConstant.TIMER_PAGE} element={<Timer />} />
       <Route path={routesConstant.CURRENCIES_PAGE} element={<Currencies />} />
-      {/* <Route
-          path={routesConstant.MULTI_CLOCKS_PAGE}
-          element={<MultiClocks />}
-        />
-        <Route
-          path={routesConstant.CURRENCY_CONVERTER_PAGE}
-          element={<CurrencyConverter />}
-        /> */}
     </RoutesContainer>
   );
 };

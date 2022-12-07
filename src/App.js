@@ -22,7 +22,7 @@ function App() {
 
   // On loading of app, navigating to home page.
   useEffect(() => {
-    navigateRef.current(routesConstant.CURRENCIES_PAGE);
+    navigateRef.current(routesConstant.HOME_PAGE);
   }, []);
 
   return (
