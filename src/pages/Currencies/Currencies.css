@@ -6,4 +6,7 @@
 
 /* Small devices */
 @media (max-width: 767.98px) {
+  .currencies__container {
+    width: 95%;
+  }
 }
