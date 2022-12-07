@@ -11,7 +11,7 @@
 
 .currencies-rate__non-watchlisted i,
 .currencies-rate__watchlisted i {
-  color: yellow;
+  color: var(--yellow-color);
 }
 
 .currencies-rate__watchlisted {
@@ -23,7 +23,6 @@
 }
 
 .watchlist__refresh__btn {
-  /* float: right;*/
   margin: 0.5rem 0.5rem;
   border-radius: 1rem 1rem;
   height: 2rem;
@@ -35,8 +34,22 @@
   justify-content: space-around;
   position: relative;
   left: 5vw;
-  height: 5rem;
+  height: 3em;
 }
 .watchlist__content {
-  margin-bottom: 2rem;
+  margin-bottom: 2em;
+  width: 100%;
+  padding: 0rem 0rem;
+}
+
+@media (max-width: 767.98px) {
+  .watchlist__refresh {
+    left: 5vw;
+  }
+
+  .watchlist__refresh__btn {
+    height: 1.8rem;
+    width: 1.8rem;
+    margin: 0rem 0rem;
+  }
 }

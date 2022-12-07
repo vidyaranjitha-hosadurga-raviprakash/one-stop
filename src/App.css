@@ -8,12 +8,16 @@
   --primary-text-color: #fafafa;
   --danger-color: #dd2c00;
   --black-color: black;
+  --yellow-color: yellow;
 
   --font-weight-boldest: 1000;
   --font-weight-bolder: 900;
   --font-weight-bold: 700;
   --font-weight-medium: 600;
   --font-weight-light: 500;
+
+  --font-size-xs: 0.8rem;
+  --font-size-sm: 1rem;
 
   --container-width-lg: 80%;
   --container-width-md: 90%;

@@ -1,5 +1,5 @@
 .currencies__container {
-  width: 80%;
+  width: 50%;
   margin: auto;
   color: var(--black-color);
 }
@@ -7,6 +7,7 @@
 /* Small devices */
 @media (max-width: 767.98px) {
   .currencies__container {
-    width: 95%;
+    width: 100%;
+    font-size: 0.6rem;
   }
 }
