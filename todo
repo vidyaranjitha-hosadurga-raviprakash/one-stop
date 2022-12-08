@@ -1,2 +1,4 @@
 <!-- https://zetcode.com/javascript/jsonserver/ -->
 <!-- https://fontawesome.com/v4/examples/# -->
+<!-- "dev": "concurrently \"cd server && npm run devStart\" \"npm run start\"", -->
+<!-- "server": "json-server -p 30001  --watch db.json" -->
