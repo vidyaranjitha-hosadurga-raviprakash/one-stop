@@ -48,7 +48,7 @@ export const apiUrls = {
     apiKey: "9a65788e6138758e95e1b15b6a59bef9",
   },
 
-  JSON_DB: "http://localhost:3001/",
+  JSON_DB: "http://localhost:30001/",
 };
 
 export const BG_IMAGE_SIZE = "1366×768";
